@@ -1,23 +1,8 @@
-ep4_palavras <- ep4$diálogo
+install.packages("wordcloud2")
+library(wordcloud2)
 
-contaPalavras <- function(ep4_palavras) {
-  palavras <- strsplit(ep4_palavras, "\\W+")
-  todas <- unlist(palavras)
-  contagem <- table(todas)
-  contagem[order(-contagem)]
-}
+ep5_h <- read.csv("data/palavras-personagens/EP5/HAN.csv")
 
-palavras <- paste(names(frequencia_ordenada_palavras), frequencia_ordenada_palavras, sep=";")
+ep5_h <- subset(ep5_h, !ep5_h$palavra %in% c("lando","vai","vamos","tudo","acho","onde", "pode", "jabba", "ohhh", "the", "tão", "vou","vão","artoo"))
 
-cat("Palavra;Frequencia", palavras, file="frequencias.csv", sep="\n")  
-
-
-AQUI <- contaPalavras(ep4_palavras = ep4_palavras)
-
-AQUI <- as.data.frame(AQUI)
-
-AQUI <- subset(AQUI, AQUI$Freq <= 10)
-
-AQUI <- subset(AQUI, !AQUI$todas %in% c("Olá","esse","à","As", "aos","vez","fui","los","dois","aí","la","te","este","dia","Lá","às","lhe","Ei","ei","já","área","vi","AA","TX","Cala", "ir", "Assim", "só"))
-
-wordcloud2(AQUI)
+wordcloud2(ep5_h)
